@@ -30,6 +30,14 @@ The worlds most accessible checkbox
           value: false,
           reflectToAttribute: true
         },
+        ariaChecked: {
+          type: String,
+          computed: '_ariaCheckedCompute(checked)',
+          reflectToAttribute: true
+        }
+      },
+      _ariaCheckedCompute: function (checked) {
+        return checked ? 'checked' : 'false';
       },
       listeners: {
         'click': '_clickHandler'
