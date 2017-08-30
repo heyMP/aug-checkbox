@@ -24,9 +24,10 @@ The worlds most accessible checkbox
       is: 'aug-checkbox',
 
       properties: {
-        prop1: {
-          type: String,
-          value: 'aug-checkbox',
+        checked: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
         },
       },
       ready: function () {
