@@ -12,9 +12,17 @@ The worlds most accessible checkbox
     <style>
       :host {
         display: block;
+        padding: 1em;
+        background-color: greenyellow;
+      }
+
+      .title {
+        font-size: 2em;
+        color: grey;
       }
     </style>
-    <h2>Hello [[prop1]]!</h2>
+    <h2 class="title">Hello [[prop1]]!</h2>
+    <p>Check this out!</p>
   </template>
 
   <script>
@@ -28,6 +36,9 @@ The worlds most accessible checkbox
           value: 'aug-checkbox',
         },
       },
+      ready: function () {
+        console.log('Ready!');
+      }
 
     });
   </script>
