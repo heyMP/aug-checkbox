@@ -12,6 +12,7 @@ The worlds most accessible checkbox
     <style>
       :host {
         display: block;
+        cursor: pointer;
       }
     </style>
     <svg hidden$="[[checked]]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z"/></svg>
@@ -29,6 +30,12 @@ The worlds most accessible checkbox
           value: false,
           reflectToAttribute: true
         },
+      },
+      listeners: {
+        'click': '_clickHandler'
+      },
+      _clickHandler: function () {
+        this.checked = !this.checked;
       },
       ready: function () {
         console.log('Ready!');
