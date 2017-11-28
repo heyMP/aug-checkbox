@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>aug-checkbox demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../aug-checkbox.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic aug-checkbox demo</h3>
+      <demo-snippet>
+        <template is="dom-bind">
+          <aug-checkbox id="box1">
+            <aug-child name="mike"></aug-child>
+            <aug-child name="chuck"></aug-child>
+          </aug-checkbox>
+          <paper-button id="addchild"> Add Child </paper-button>
+          <script>
+            document.querySelector('#addchild').addEventListener('click', function () {
+              var node = document.createElement('aug-child');
+              node.name = 'Nikki';
+              Polymer.dom(document.querySelector('#box1')).appendChild(node);
+            })
+          </script>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
