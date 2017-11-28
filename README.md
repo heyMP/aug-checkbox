@@ -1,6 +1,6 @@
 # \<aug-checkbox\>
 
-The worlds most accessible checkbox
+A crazy example of a11y keys, dynamic child creation, event listening, and focus states :)
 
 ## Install the Polymer-CLI
 
