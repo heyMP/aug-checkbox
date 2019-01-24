@@ -1,7 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
-<link rel="import" href="../paper-radio-group/paper-radio-group.html">
-<link rel="import" href="aug-child.html">
 
 <!--
 `aug-checkbox`
@@ -18,35 +16,10 @@ The worlds most accessible checkbox
         cursor: pointer;
       }
     </style>
+    <svg hidden$="[[checked]]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z"/></svg>
+    <svg hidden$="[[!checked]]"xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24zm-5.541 8.409l-1.422-1.409-7.021 7.183-3.08-2.937-1.395 1.435 4.5 4.319 8.418-8.591z"/></svg>
 
-    <div id="checkbox" tabindex="0">
-      <svg hidden$="[[checked]]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z"/></svg>
-      <svg hidden$="[[!checked]]"xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24zm-5.541 8.409l-1.422-1.409-7.021 7.183-3.08-2.937-1.395 1.435 4.5 4.319 8.418-8.591z"/></svg>
-      <iron-a11y-keys id="a11y" target="[[__checkboxTarget]]" keys="enter" on-keys-pressed="_toggleCheckbox"></iron-a11y-keys>
-    </div>
-
-    <hr>
-
-    <div id="radio" tabindex="0">
-      <paper-radio-group selected="small" id="radiogroup">
-        <paper-radio-button name="small">Small</paper-radio-button>
-        <paper-radio-button name="medium">Medium</paper-radio-button>
-        <paper-radio-button name="large">Large</paper-radio-button>
-      </paper-radio-group>
-      <iron-a11y-keys id="a11y2" target="[[__radioTarget]]" keys="space" on-keys-pressed="_radioChanged"></iron-a11y-keys>
-    </div>
-
-    <div id="parent">
-      Hi I have [[__childCount]] children.  Here they are:
-      <div id="slot">
-        <slot></slot>
-      </div>
-
-      <hr>
-
-      But this one is my favorite: [[__selectedChild]]
-    </div>
-
+    <iron-a11y-keys id="a11y" target="[[target]]" keys="enter space" on-keys-pressed="_clickHandler"></iron-a11y-keys>
   </template>
 
   <script>
@@ -64,36 +37,26 @@ The worlds most accessible checkbox
           type: String,
           computed: '_ariaCheckedCompute(checked)',
           reflectToAttribute: true
-        }
+        },
+        target: {
+          type: Object,
+          value: function() {
+            return this;
+          }
+        },
       },
       _ariaCheckedCompute: function (checked) {
         return checked ? 'checked' : 'false';
       },
       listeners: {
-        'click': '_toggleCheckbox'
+        'click': '_clickHandler'
       },
-      _toggleCheckbox: function () {
+      _clickHandler: function () {
         this.checked = !this.checked;
-      },
-      _radioChanged: function () {
-        this.__radioGroup.selectNext();
       },
       ready: function () {
         this.setAttribute('tabindex', '0');
         this.setAttribute('role', 'checkbox');
-
-        this.__checkboxTarget = this.$.checkbox;
-        this.__radioTarget = this.$.radio;
-        this.__radioGroup = this.$.radiogroup;
-
-        var effectiveChildren = Polymer.dom(this.$.slot).getEffectiveChildNodes();
-        var augChildren = effectiveChildren.filter(item => item.tagName === 'AUG-CHILD');
-
-        this.$.slot.addEventListener('aug-child-selected', (e) => {
-          this.__selectedChild = e.detail.name;
-        });
-
-        this.__childCount = augChildren.length;
       }
     });
   </script>
